@@ -37,7 +37,14 @@ dependencies:
   get: ^4.6.5
   http: ^1.1.0
   get_storage: ^2.0.3
-  shared_preferences: ^2.0.12
+  flutter_dotenv: ^5.0.2
+  pinput: ^3.0.1
+  flutter_svg: ^0.22.0
+  dropdown_search: ^5.0.6
+  flutter_screenutil: ^5.9.0
+  google_maps_flutter: ^2.4.0
+  url_launcher: ^6.1.14
+  syncfusion_flutter_gauges: ^23.1.38
 
 dev_dependencies:
   flutter_test:
@@ -64,12 +71,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/vokta_logo.png
+    - assets/images/vokta_logo_blue.png
     - assets/images/vokta-default.png
-    - assets/images/splash_1.png
-    - assets/images/splash_2.png
-    - assets/images/splash_1.svg
-    - assets/images/splash_2.svg
     - assets/images/welcome.png
+    - assets/images/welcome2.png
+    - assets/images/wave.png
+    - assets/images/profile-circle.png
+
   # icon assets
     - assets/icon/sms.png
     - assets/icon/lock.png
@@ -80,9 +88,20 @@ flutter:
     - assets/icon/profile.png
     - assets/icon/check.png
     - assets/icon/add-tangki.png
-    - assets/icon/profile-circle.png
     - assets/icon/home.png
     - assets/icon/add-tangki-2.png
+    - assets/icon/disk.png
+    - assets/icon/m-question.png
+    - assets/icon/water-drop.png
+    - assets/icon/water-drop-2.png
+    - assets/icon/water-drop-3.png
+
+    # svg
+    - assets/svg/map.svg
+    - assets/svg/indikator_level.svg
+
+    #env assets
+    - .env.lab
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

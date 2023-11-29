@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vokta_app/screens/add_tank_page.dart';
 import 'package:vokta_app/screens/home_page.dart';
 import 'package:vokta_app/screens/profile_page.dart';
@@ -9,23 +10,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
-  final List<Widget> _pages = [
-    HomePage(),
-    AddTankPage(),
-    ProfilePage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _pages[_currentIndex],
+        body: HomePage(),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
           onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
+            if (index == 1) {
+              Get.to(() => AddTankPage(
+                    isEdit: false,
+                  ));
+            } else if (index == 2) {
+              Get.to(() => ProfilePage());
+            }
           },
           items: [
             BottomNavigationBarItem(
@@ -42,7 +39,7 @@ class _HomeState extends State<Home> {
             ),
           ],
           selectedItemColor: Color.fromRGBO(93, 204, 252, 1),
-          unselectedItemColor: Colors.grey, 
+          unselectedItemColor: Colors.grey,
         ));
   }
 }

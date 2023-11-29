@@ -1,68 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:vokta_app/screens/home.dart';
 import 'package:vokta_app/screens/on_boarding_page.dart';
 
 class SplashScreenPage extends StatelessWidget {
+  const SplashScreenPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Ubah sesuai kebutuhan
+      backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFDFF5FF), Color(0xFF67D0FD)],
-          ),
-        ),child: Stack(children: [
-          
-          Positioned(
-            bottom: -20,
-            child: Center(
-              child: Image.asset(
-                'assets/images/splash_1.png',
-                width: 600,
-                fit: BoxFit.cover
-              ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF67D0FD), Color(0xFFDFF5FF)],
             ),
           ),
-          Positioned(
-            bottom: -20,
-            left: -100,
-            child: Center(
-              child: Image.asset(
-                'assets/images/splash_2.png', 
-                width: 600,
-                fit: BoxFit.cover
+          child: Stack(children: [
+            Positioned(
+              bottom: -15.h,
+              left: -50.w,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/wave.png',
+                  width: 600.w,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Positioned(child:  SplashContent(),),
-        ])), // Widget konten splash screen
+            const Positioned(
+              child: SplashContent(),
+            ),
+          ])),
     );
   }
 }
 
 class SplashContent extends StatefulWidget {
+  const SplashContent({super.key});
+
   @override
   _SplashContentState createState() => _SplashContentState();
 }
 
 class _SplashContentState extends State<SplashContent> {
-  double opacityLevel = 0; // Awalnya opacity 0
+  double opacityLevel = 0;
 
   @override
   void initState() {
     super.initState();
-    // Setelah 0,5 detik, animasikan opacity menjadi 1
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
         opacityLevel = 1;
       });
 
-      Future.delayed(Duration(seconds: 2), () {
-        Get.offAll(OnBoardingPage()); // Menggunakan GetX untuk pindah halaman
+      final box = GetStorage();
+      final isLoggedIn = box.read('isLoggedIn') ?? false;
+
+      Future.delayed(const Duration(seconds: 2), () {
+        isLoggedIn
+            ? Get.offAll(() => Home())
+            : Get.offAll(() => OnBoardingPage());
       });
     });
   }
@@ -72,25 +74,24 @@ class _SplashContentState extends State<SplashContent> {
     return Center(
       child: AnimatedOpacity(
         opacity: opacityLevel,
-        duration: Duration(seconds: 1), // Durasi animasi
-        curve: Curves.easeIn, // Kurva animasi
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeIn,
         child: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+            SizedBox(height: 200.h),
             Image.asset(
-              'assets/images/vokta_logo.png', // Ganti dengan path gambar kedua
-              width: MediaQuery.of(context).size.width/2,
-            ), // Ganti dengan path gambar
-            SizedBox(height: MediaQuery.of(context).size.height/2.5),
-            RichText(
-              text: TextSpan(
-                text: 'Powered by ',
-                style: TextStyle(color: Colors.white),
-                children: const <TextSpan>[
-                  TextSpan(text: 'Vokasi Water', style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
+              'assets/images/vokta_logo.png',
+              width: 180.w,
+            ),
+            SizedBox(height: 300.h),
+            Text(
+              'Powered by Vokasi Water',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w400,
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tandonku_app">
+    package="id.vokta.voktamobile">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
-        android:label="tandonku_app"
+        android:label="Vokta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDEmepMu41TfQRyC7qz9fKHve3BTQ0KodI"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +37,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
 </manifest>
